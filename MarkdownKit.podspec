@@ -20,4 +20,5 @@ all the Markdown elements.
 
   s.source_files = 'MarkdownKit/Classes/**/*'
   s.frameworks = 'UIKit'
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.2' }
 end

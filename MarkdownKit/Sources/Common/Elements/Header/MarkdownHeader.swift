@@ -7,6 +7,12 @@
 //
 import Foundation
 
+#if os(iOS)
+import UIKit
+#elseif os(OSX)
+import AppKit
+#endif
+
 open class MarkdownHeader: MarkdownLevelElement {
 
   fileprivate static let regex = "^(#{1,%@})\\s*(.+)$"
@@ -15,6 +21,7 @@ open class MarkdownHeader: MarkdownLevelElement {
   open var font: MarkdownFont?
   open var color: MarkdownColor?
   open var fontIncrease: Int
+    open var paragraphStyle: NSMutableParagraphStyle?
 
   open var regex: String {
     let level: String = maxLevel > 0 ? "\(maxLevel)" : ""
@@ -39,6 +46,9 @@ open class MarkdownHeader: MarkdownLevelElement {
         let headerFontSize: CGFloat = font.pointSize + 4 + (-1 * CGFloat(level) * CGFloat(fontIncrease))
       
       attributes[NSAttributedString.Key.font] = font.withSize(headerFontSize).bold()
+    }
+    if (self.paragraphStyle != nil) {
+        attributes[NSAttributedString.Key.paragraphStyle] = self.paragraphStyle
     }
     return attributes
   }
